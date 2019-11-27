@@ -11,8 +11,7 @@ import WebKit
 
 class ViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler {
     
-    @IBOutlet var containerView: UIView!
-    
+    @IBOutlet weak var containerView: UIView!
     
     var webView: WKWebView!
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -39,23 +38,20 @@ class ViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKSc
         
 //        self.view = self.webView!
         self.view.addSubview(webView)
-        print("loadView")
-        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-//        let lnk = "https://serpadmin.appplay.co.kr/pfmc_0001_00.act"
-//
-        let lnk = "file:///Users/webcash/Assignment/serp-sample/serp-sample/test.html"
+        let lnk = "https://serpadmin.appplay.co.kr/pfmc_0001_00.act"
+
+//        let lnk = "file:///Users/webcash/Assignment/serp-sample/serp-sample/test.html"
         let url = URL(string: lnk)
         let request = URLRequest(url: url!)
         
         
         webView.load(request) // 웹뷰 띄우기 //
-        print("viewDidLoad")
         
     }
 
@@ -82,4 +78,3 @@ class ViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKSc
     }
 
 }
-
