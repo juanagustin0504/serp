@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7617E777238E0E6100D224DA /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7617E776238E0E6100D224DA /* test.html */; };
-		7617E779238E3C1500D224DA /* test1.html in Resources */ = {isa = PBXBuildFile; fileRef = 7617E778238E3C1500D224DA /* test1.html */; };
 		7645DC5C238F59A300221865 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7645DC5B238F59A300221865 /* LaunchViewController.swift */; };
 		7645DC62238F940400221865 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7645DC61238F940400221865 /* MainViewController.swift */; };
 		76EF5E0D238D1CD200BE8D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EF5E0C238D1CD200BE8D2E /* AppDelegate.swift */; };
@@ -24,9 +23,9 @@
 
 /* Begin PBXFileReference section */
 		7617E776238E0E6100D224DA /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
-		7617E778238E3C1500D224DA /* test1.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = test1.html; sourceTree = "<group>"; };
 		7645DC5B238F59A300221865 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LaunchViewController.swift; path = "serp-sample/LaunchViewController.swift"; sourceTree = SOURCE_ROOT; };
 		7645DC61238F940400221865 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		76989527238FAE1500112E96 /* test.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.geojson; sourceTree = "<group>"; };
 		76EF5E09238D1CD200BE8D2E /* serp-sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "serp-sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76EF5E0C238D1CD200BE8D2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76EF5E0E238D1CD200BE8D2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,8 +74,8 @@
 				76EF5E0E238D1CD200BE8D2E /* SceneDelegate.swift */,
 				7645DC5B238F59A300221865 /* LaunchViewController.swift */,
 				7645DC61238F940400221865 /* MainViewController.swift */,
+				76989527238FAE1500112E96 /* test.geojson */,
 				76EF5E12238D1CD200BE8D2E /* Main.storyboard */,
-				7617E778238E3C1500D224DA /* test1.html */,
 				7617E776238E0E6100D224DA /* test.html */,
 				76EF5E15238D1CD300BE8D2E /* Assets.xcassets */,
 				76EF5E17238D1CD300BE8D2E /* LaunchScreen.storyboard */,
@@ -156,7 +155,6 @@
 			files = (
 				76EF5E19238D1CD300BE8D2E /* LaunchScreen.storyboard in Resources */,
 				76EF5E16238D1CD300BE8D2E /* Assets.xcassets in Resources */,
-				7617E779238E3C1500D224DA /* test1.html in Resources */,
 				76EF5E25238D1CFE00BE8D2E /* intro_bg_1125x2436.png in Resources */,
 				76EF5E26238D1CFE00BE8D2E /* intro_bg.png in Resources */,
 				7617E777238E0E6100D224DA /* test.html in Resources */,
