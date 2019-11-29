@@ -26,6 +26,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     @IBOutlet weak var containerView: UIView!
     
     var webView: WKWebView!
+    var popupView: WKWebView!
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     let contentController = WKUserContentController()
@@ -147,6 +148,9 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
                     }
                 } else {
                     for actionCode in actionCodes {
+                        if actionCode == "close_webview" {
+                            closeWebview()
+                        }
                         print(actionCode)
                     }
                 }
@@ -157,9 +161,9 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     func popupWebview(lnk: String) {
         
-        var popupView: WKWebView!
         
-        contentController.add(self, name: "fn_callBack_pop")
+        
+        contentController.add(self, name: "close_webview")
         
         config.userContentController = contentController
         
@@ -167,12 +171,30 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         popupView.uiDelegate = self
         popupView.navigationDelegate = self
         
-        self.view.addSubview(popupView)
+//        self.view.addSubview(popupView)
         
         let url = URL(string: "https://serpadmin.appplay.co.kr/pfmc_0001_00.act/" + lnk)
         let request = URLRequest(url: url!)
+        webView.load(request)
         
-        popupView.load(request)
+//        popupView.load(request)
+    }
+
+    func closeWebview() {
+        print("closeWebview()")
+//        popupView.isHidden = true
+        if webView.canGoBack {
+
+            webView.goBack()
+        }
+//        popupView.evaluateJavaScript("close_webview()", completionHandler: {(result, error) in
+//
+//            if self.popupView.canGoBack {
+//
+//                self.popupView.goBack()
+//            }
+//            print(error)
+//        })
     }
     
     func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
@@ -217,7 +239,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     // js -> native call
     @available(iOS 8.0, *)
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "iWebAction" {
+        if message.name == "close_webview" {
             print(message.body)
             abc()
         }
