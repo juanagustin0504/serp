@@ -9,17 +9,6 @@
 import UIKit
 import WebKit
 
-struct Person: Codable {
-    var name: String
-    var age: Int
-}
-
-struct iWebViewAction: Codable {
-    var _action_code: String
-    var _url: String
-    var _type: String
-}
-
 class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler {
     
     
@@ -36,8 +25,8 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         super.loadView()
         
         // native -> js call (문서 시작시에만 가능한, 환경설정으로 사용함), source부분에 함수 대신 HTML직접 사용 가능 //
-//        let userScript = WKUserScript(source: "redHeader()", injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-//        contentController.addUserScript(userScript)
+        //        let userScript = WKUserScript(source: "redHeader()", injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        //        contentController.addUserScript(userScript)
         
         // native -> js call (일반적인 함수 호출)
         
@@ -51,6 +40,8 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         webView = WKWebView(frame: self.containerView.frame, configuration: config)
         webView.uiDelegate = self
         webView.navigationDelegate = self
+        webView.allowsBackForwardNavigationGestures = true
+        webView.allowsLinkPreview = false
         
         //        self.view = self.webView!
         self.view.addSubview(webView)
@@ -70,10 +61,14 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         
     }
     
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        
+    }
+    
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-//        print(message)
-
+        //        print(message)
+        
         alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
             completionHandler()
         }))
@@ -88,44 +83,44 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         //      "_type":"get"
         // }
         
-//        let tmp = message.components(separatedBy: [" ", "\"", ":", "{", "}"])
-//
-//        print(tmp)
+        //        let tmp = message.components(separatedBy: [" ", "\"", ":", "{", "}"])
+        //
+        //        print(tmp)
         
         
-//        let encoder = JSONEncoder()
-//        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-//        let moon = Person(name: "Moon", age: 19)
-//        let jsonData = try? encoder.encode(moon)
-//
-//        if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8) {
-//            print(jsonString)
-//
-//            let decoder = JSONDecoder()
-//            let data = jsonString.data(using: .utf8)
-//            if let data = data, let myPerson = try? decoder.decode(Person.self, from: data) {
-//                print(myPerson.name)
-//                print(myPerson.age)
-//            }
-//        }
+        //        let encoder = JSONEncoder()
+        //        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        //        let moon = Person(name: "Moon", age: 19)
+        //        let jsonData = try? encoder.encode(moon)
+        //
+        //        if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8) {
+        //            print(jsonString)
+        //
+        //            let decoder = JSONDecoder()
+        //            let data = jsonString.data(using: .utf8)
+        //            if let data = data, let myPerson = try? decoder.decode(Person.self, from: data) {
+        //                print(myPerson.name)
+        //                print(myPerson.age)
+        //            }
+        //        }
         
-//        let encoder = JSONEncoder()
-//        let test = iWebViewAction(_action_code: "popup_webview", _url: "test_pfmc.act?LAST_LOGIN_DT=20191129&USE_INTT_ID=UTLZ_1711131611099&USE_INTT_NM=%EA%B4%80%EC%84%B8%EB%B2%95%EC%9D%B8%EB%8D%94%EB%B8%94%EC%9C%A0&ADDR=%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EC%96%B8%EC%A3%BC%EB%A1%9C%20714&DTL_ADDR=&ZPCD=&BIZ_NO=&SUMR_YM=2019%EB%85%84%2010%EC%9B%94&LOGN_PCNT_01=21&LOGN_PCNT_02=51&LOGN_PCNT_03=0&SALE_PCNT_01=0&SALE_PCNT_02=0&TRNS_PCNT_01=0&TRNS_PCNT_02=125&TRNS_PCNT_03=0&CTNT_PCNT_01=0&CTNT_PCNT_02=86&CTNT_PCNT_03=0&CTNT_PCNT_04=0&SMRT_PCNT_01=0&SMRT_PCNT_02=0&SMRT_PCNT_03=0&SMRT_PCNT_04=0&SMRT_PCNT_05=0&SMRT_PCNT_06=0&SMRT_PCNT_07=0&RPRT_PCNT_01=0&RPRT_PCNT_02=0&RPRT_PCNT_03=0", _type: "get")
-//        let jsonData = try? encoder.encode(test)
-//
-//        if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8) {
-//            print(jsonString)
-//
-//            let decoder = JSONDecoder()
-//            let data = jsonString.data(using: .utf8)
-//            if let data = data, let iMessage = try? decoder.decode(iWebViewAction.self, from: data) {
-//                print(iMessage._action_code)
-//
-//                print(iMessage._url)
-//                print(iMessage._type)
-//
-//            }
-//        }
+        //        let encoder = JSONEncoder()
+        //        let test = iWebViewAction(_action_code: "popup_webview", _url: "test_pfmc.act?LAST_LOGIN_DT=20191129&USE_INTT_ID=UTLZ_1711131611099&USE_INTT_NM=%EA%B4%80%EC%84%B8%EB%B2%95%EC%9D%B8%EB%8D%94%EB%B8%94%EC%9C%A0&ADDR=%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EC%96%B8%EC%A3%BC%EB%A1%9C%20714&DTL_ADDR=&ZPCD=&BIZ_NO=&SUMR_YM=2019%EB%85%84%2010%EC%9B%94&LOGN_PCNT_01=21&LOGN_PCNT_02=51&LOGN_PCNT_03=0&SALE_PCNT_01=0&SALE_PCNT_02=0&TRNS_PCNT_01=0&TRNS_PCNT_02=125&TRNS_PCNT_03=0&CTNT_PCNT_01=0&CTNT_PCNT_02=86&CTNT_PCNT_03=0&CTNT_PCNT_04=0&SMRT_PCNT_01=0&SMRT_PCNT_02=0&SMRT_PCNT_03=0&SMRT_PCNT_04=0&SMRT_PCNT_05=0&SMRT_PCNT_06=0&SMRT_PCNT_07=0&RPRT_PCNT_01=0&RPRT_PCNT_02=0&RPRT_PCNT_03=0", _type: "get")
+        //        let jsonData = try? encoder.encode(test)
+        //
+        //        if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8) {
+        //            print(jsonString)
+        //
+        //            let decoder = JSONDecoder()
+        //            let data = jsonString.data(using: .utf8)
+        //            if let data = data, let iMessage = try? decoder.decode(iWebViewAction.self, from: data) {
+        //                print(iMessage._action_code)
+        //
+        //                print(iMessage._url)
+        //                print(iMessage._type)
+        //
+        //            }
+        //        }
         
         if message.lowercased().contains("iwebaction:") {
             var actionDic: [String: Any]?
@@ -140,13 +135,13 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
                         if actionCode == "popup_webview" {
                             let lnk = (actionData["_url"] as? String)!
                             let type = actionData["_type"] as! String
-//                            let type = "post"
+                            //                            let type = "post"
                             if type.elementsEqual("get") {
                                 // get 처리
-                                popupWebViewFromGet(lnk: lnk)
+                                popupWebViewByGet(lnk: lnk)
                             } else {
                                 // post 처리
-                                popupWebViewFromPost(lnk: lnk, actionData: actionData)
+                                popupWebViewByPost(lnk: lnk, actionData: actionData)
                             }
                             
                         }
@@ -165,18 +160,17 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         
     }
     
-    func popupWebViewFromGet(lnk: String) {
+    func popupWebViewByGet(lnk: String) {
         print("GET")
         let url = URL(string: "https://serpadmin.appplay.co.kr/pfmc_0001_00.act/" + lnk)
         let domain = url?.host
-        print(domain)
+        print(domain!)
         let request = URLRequest(url: url!)
         print("popup! \(request)")
         webView.load(request)
-        
     }
     
-    func popupWebViewFromPost(lnk: String, actionData: [String:Any]) {
+    func popupWebViewByPost(lnk: String, actionData: [String:Any]) {
         print("POST")
         print(actionData)
         
@@ -210,28 +204,60 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     func closeWebview() {
         print("closeWebview()")
-//        popupView.isHidden = true
+        //        popupView.isHidden = true
         if webView.canGoBack {
-
+            
             webView.goBack()
         }
-//        popupView.evaluateJavaScript("close_webview()", completionHandler: {(result, error) in
-//
-//            if self.popupView.canGoBack {
-//
-//                self.popupView.goBack()
-//            }
-//            print(error)
-//        })
+        //        popupView.evaluateJavaScript("close_webview()", completionHandler: {(result, error) in
+        //
+        //            if self.popupView.canGoBack {
+        //
+        //                self.popupView.goBack()
+        //            }
+        //            print(error)
+        //        })
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        print("@")
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            completionHandler(true)
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+            completionHandler(false)
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+        print("#")
+        let alertController = UIAlertController(title: nil, message: prompt, preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.text = defaultText
+        }
+        
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            if let text = alertController.textFields?.first?.text {
+                completionHandler(text)
+            } else {
+                completionHandler(defaultText)
+            }
+            
+            
+        }))
     }
     
     
     // js -> native call
     @available(iOS 8.0, *)
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "close_webview" {
-            print(message.body)
-        }
+        
     }
     
 }
