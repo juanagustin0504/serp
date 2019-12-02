@@ -127,7 +127,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
 //            }
 //        }
         
-        // 분리완료 //
         if message.lowercased().contains("iwebaction:") {
             var actionDic: [String: Any]?
             actionDic = String(message.dropFirst(11)).toDictionary()
@@ -139,11 +138,18 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
                 if let actionData = actionDic["_action_data"] as? [String:Any] {
                     for actionCode in actionCodes {
                         if actionCode == "popup_webview" {
-                            popupWebview(lnk: (actionData["_url"] as? String)!)
+                            let lnk = (actionData["_url"] as? String)!
+                            let type = actionData["_type"] as! String
+//                            let type = "post"
+                            if type.elementsEqual("get") {
+                                // get 처리
+                                popupWebViewFromGet(lnk: lnk)
+                            } else {
+                                // post 처리
+                                popupWebViewFromPost(lnk: lnk, actionData: actionData)
+                            }
+                            
                         }
-//                        print(actionCode)
-                        print(actionData["_url"]!)
-                        print(actionData["_type"]!)
                         
                     }
                 } else {
@@ -159,27 +165,49 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         
     }
     
-    func popupWebview(lnk: String) {
-        
-        
-        
-        contentController.add(self, name: "close_webview")
-        
-        config.userContentController = contentController
-        
-        popupView = WKWebView(frame: self.view.frame, configuration: config)
-        popupView.uiDelegate = self
-        popupView.navigationDelegate = self
-        
-//        self.view.addSubview(popupView)
-        
+    func popupWebViewFromGet(lnk: String) {
+        print("GET")
         let url = URL(string: "https://serpadmin.appplay.co.kr/pfmc_0001_00.act/" + lnk)
+        let domain = url?.host
+        print(domain)
         let request = URLRequest(url: url!)
+        print("popup! \(request)")
         webView.load(request)
         
-//        popupView.load(request)
     }
-
+    
+    func popupWebViewFromPost(lnk: String, actionData: [String:Any]) {
+        print("POST")
+        print(actionData)
+        
+        let urlStr = "https://serpadmin.appplay.co.kr/pfmc_0001_00.act/" + lnk
+        let url = URL(string: urlStr)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        request.value(forHTTPHeaderField: "Content-Type")
+        
+        let body = urlStr.data(using: .utf8, allowLossyConversion: false)
+        
+        request.httpBody = body
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) {(data, response, error) in
+            if let res = response {
+                print(res)
+            }
+            
+            if let data = data {
+                do {
+                    
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
+    
     func closeWebview() {
         print("closeWebview()")
 //        popupView.isHidden = true
@@ -197,78 +225,15 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
 //        })
     }
     
-    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
-        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-            completionHandler(true)
-        }))
-        
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
-            completionHandler(false)
-        }))
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
-        let alertController = UIAlertController(title: nil, message: prompt, preferredStyle: .alert)
-        
-        alertController.addTextField { (textField) in
-            textField.text = defaultText
-        }
-        
-        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-            if let text = alertController.textFields?.first?.text {
-                completionHandler(text)
-            } else {
-                completionHandler(defaultText)
-            }
-            
-        }))
-        
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
-            
-            completionHandler(nil)
-            
-        }))
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
     
     // js -> native call
     @available(iOS 8.0, *)
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "close_webview" {
             print(message.body)
-            abc()
         }
     }
     
-    func abc() {
-        print("abc call")
-    }
-    
-//    fileprivate func checkActionCode(jsongData:String,completion: @escaping (String,[String:Any]?) -> Void) {
-//        if jsongData.lowercased().contains("iwebaction:") {
-//            var actionDic: [String: Any]?
-//            actionDic = String(jsongData.dropFirst(11)).toDictionary()
-//            if let actionDic = actionDic {
-//                guard let actionCodes = (actionDic["_action_code"] as? String)?.components(separatedBy: "|") else {
-//                    return
-//                }
-//                if let actionData = actionDic["_action_data"] as? [String:Any] {
-//                    for actionCode in actionCodes {
-//                        completion(actionCode,actionData)
-//                    }
-//                }else {
-//                    for actionCode in actionCodes {
-//                        completion(actionCode,nil)
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
 
 
