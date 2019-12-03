@@ -14,12 +14,20 @@ import UIKit
 class LaunchViewController: UIViewController {
 
     
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        imageView.frame = self.view.frame
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        Thread.sleep(forTimeInterval: 2.0)
         let mainVC = self.storyboard?.instantiateViewController(withIdentifier: "MainVC")
         self.navigationController?.pushViewController(mainVC!, animated: true)
     }
+    
 
     /*
     // MARK: - Navigation

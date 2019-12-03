@@ -110,11 +110,32 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         
         if url.host == "serpadmin.appplay.co.kr" {
             print("serp")
-        } else {
-            print("another")
+        } else if url.host == "apis.openapi.sk.com" {
+            // Tmap 버튼을 누르면 기존에 열려있는 popup뷰가 한번 더 열리고 Tmap 화면이 떠 있음. //
+            // 그래서 Tmap 버튼을 누르고 닫기를 2번 해야 함. //
+            /* Tmap url
+             https://apis.openapi.sk.com/tmap/app/routes?appKey=139a893c-dcdd-43a1-8661-c4ae8f201c08&name=%EA%B0%91%EC%9D%84%EA%B7%B8%EB%A0%88%EC%9D%B4%ED%8A%B8%EB%B0%B8%EB%A6%AC&lon=126.88751109358344&lat=37.47951408984022
+             https://www.tmap.co.kr/tmap2/mobile/route.jsp?appKey=139a893c-dcdd-43a1-8661-c4ae8f201c08&name=%EA%B0%91%EC%9D%84%EA%B7%B8%EB%A0%88%EC%9D%B4%ED%8A%B8%EB%B0%B8%EB%A6%AC&lon=126.88751109358344&lat=37.47951408984022
+             tmap://?rGoName=%EA%B0%91%EC%9D%84%EA%B7%B8%EB%A0%88%EC%9D%B4%ED%8A%B8%EB%B0%B8%EB%A6%AC&rGoX=126.88751109358344&rGoY=37.47951408984022
+             */
+            print("tmap")
+            UIApplication.shared.open(url, options: [:], completionHandler: {(action) in
+                self.webView.goBack()
+                
+            })
             self.webView.goBack()
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
             
+        } else if url.host == "kakaonavi-wguide.kakao.com" {
+            /* 카카오내비 url 사파리로 띄우는 것이 아닌 앱 실행
+              https://kakaonavi-wguide.kakao.com/openapi/?appkey=d3bd1dcd0054d2d8ce86f75337ce4d7e&apiver=1.0&extras=%7B%22KA%22%3A%22sdk%2F1.35.3%20os%2Fjavascript%20lang%2Fen-US%20device%2FiPhone%20origin%2Fhttps%253A%252F%252Fserpadmin.appplay.co.kr%22%7D&param=%7B%22destination%22%3A%7B%22name%22%3A%22%EC%84%9C%EC%9A%B8%20%EA%B8%88%EC%B2%9C%EA%B5%AC%20%EB%94%94%EC%A7%80%ED%84%B8%EB%A1%9C9%EA%B8%B8%2032%22%2C%22x%22%3A126.88751109358344%2C%22y%22%3A37.47951408984022%7D%2C%22option%22%3A%7B%22coord_type%22%3A%22wgs84%22%7D%7D
+            */
+            print("kakaonavi")
+            UIApplication.shared.open(url, options: [:], completionHandler: {(action) in
+                self.webView.goBack()
+                
+            })
+        } else {
+            print(url)
         }
         decisionHandler(.allow)
     }
