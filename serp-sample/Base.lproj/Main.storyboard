@@ -32,20 +32,10 @@
         <!--Main View Controller-->
         <scene sceneID="3oR-fC-nPN">
             <objects>
-                <viewController storyboardIdentifier="MainActivity" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NFl-Pe-WgL" customClass="MainViewController" customModule="serp_sample" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Vqp-r6-efI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="CQX-P6-DA2"/>
-                    </view>
-                    <connections>
-                        <outlet property="containerView" destination="Vqp-r6-efI" id="2kH-ZP-fdE"/>
-                    </connections>
-                </viewController>
+                <viewController storyboardIdentifier="MainVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NFl-Pe-WgL" customClass="MainViewController" customModule="serp_sample" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tKA-l2-dah" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2737" y="137"/>
+            <point key="canvasLocation" x="2940" y="137"/>
         </scene>
         <!--Item-->
         <scene sceneID="df1-Oy-x0j">

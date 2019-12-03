@@ -17,7 +17,7 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let mainVC = self.storyboard?.instantiateViewController(withIdentifier: "MainActivity")
+        let mainVC = self.storyboard?.instantiateViewController(withIdentifier: "MainVC")
         self.navigationController?.pushViewController(mainVC!, animated: true)
     }
 

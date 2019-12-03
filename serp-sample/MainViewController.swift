@@ -11,13 +11,10 @@ import WebKit
 
 class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler {
     
-    
-    @IBOutlet weak var containerView: UIView!
-    
-    var webView: WKWebView!
+    var webView: WKWebView! // 사용할 웹뷰 //
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
-    let contentController = WKUserContentController()
+    let contentController = WKUserContentController() // js -> native 호출할 때
     let config = WKWebViewConfiguration()
     
     override func loadView() {
@@ -36,11 +33,11 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         config.userContentController = contentController
         
         
-        self.webView = WKWebView(frame: self.containerView.frame, configuration: config)
+        self.webView = WKWebView(frame: self.view.frame, configuration: config)
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
-//        webView.allowsBackForwardNavigationGestures = true
-//        webView.allowsLinkPreview = false
+        webView.allowsBackForwardNavigationGestures = true
+        webView.allowsLinkPreview = false
         
         //        self.view = self.webView!
         self.view.addSubview(webView)
@@ -55,19 +52,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         let request = URLRequest(url: url!)
         
         webView.load(request) // 웹뷰 띄우기 //
-        
-    }
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        guard let url = navigationAction.request.url else {
-            decisionHandler(.cancel)
-            return
-        }
-        if url.host == "serpadmin.appplay.co.kr" {
-            print("serp")
-        } else {
-            print("another")
-        }
         
     }
     
@@ -108,75 +92,91 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
                     for actionCode in actionCodes {
                         if actionCode == "close_webview" {
                             closeWebview()
-                        }
-                    }
-                }
-            }
+                        } // end of if "actionCode"
+                    } // end of for "actionCode"
+                } // end of else "actionData"
+            } // end of if "actionCode"
+        } // end of if "message == iwebaction:"
+        
+    } // end of webView
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        // 실행 안 됨 //
+
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.cancel)
+            return
         }
         
+        if url.host == "serpadmin.appplay.co.kr" {
+            print("serp")
+        } else {
+            print("another")
+            self.webView.goBack()
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            
+        }
+        decisionHandler(.allow)
     }
     
     func popupWebViewByGet(lnk: String) {
         
-        let url = URL(string: "https://serpadmin.appplay.co.kr/pfmc_0001_00.act/" + lnk)
+        // get 방식으로 호출 //
+        let url = URL(string: "https://serpadmin.appplay.co.kr/pfmc_0001_00.act/" + lnk) // 기존 링크 + js message 링크 //
         let request = URLRequest(url: url!)
         self.webView.load(request)
         
     }
     
     func popupWebViewByPost(lnk: String, actionData: [String:Any]) {
+        
+        // post 방식으로 호출 //
         print("POST")
-        print(actionData)
-        
-        let urlStr = "https://serpadmin.appplay.co.kr/pfmc_0001_00.act/" + lnk
-        let url = URL(string: urlStr)
-        var request = URLRequest(url: url!)
-        request.httpMethod = "POST"
-        request.value(forHTTPHeaderField: "Content-Type")
-        
-        let body = urlStr.data(using: .utf8, allowLossyConversion: false)
-        
-        request.httpBody = body
-        
-        let session = URLSession.shared
-        session.dataTask(with: request) {(data, response, error) in
-            if let res = response {
-                print(res)
-            }
-            
-            if let data = data {
-                do {
-                    
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    print(json)
-                } catch {
-                    print(error)
-                }
-            }
-        }.resume()
+//        print(actionData)
+//
+//        let urlStr = "https://serpadmin.appplay.co.kr/pfmc_0001_00.act/" + lnk
+//        let url = URL(string: urlStr)
+//        var request = URLRequest(url: url!)
+//        request.httpMethod = "POST"
+//        request.value(forHTTPHeaderField: "Content-Type")
+//
+//        let body = urlStr.data(using: .utf8, allowLossyConversion: false)
+//
+//        request.httpBody = body
+//
+//        let session = URLSession.shared
+//        session.dataTask(with: request) {(data, response, error) in
+//            if let res = response {
+//                print(res)
+//            }
+//
+//            if let data = data {
+//                do {
+//
+//                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                    print(json)
+//                } catch {
+//                    print(error)
+//                }
+//            }
+//        }.resume()
     }
     
     func closeWebview() {
-        //        popupView.isHidden = true
+        // popup된 webview 닫기
         if webView.canGoBack {
             
             webView.goBack()
         }
-        //        popupView.evaluateJavaScript("close_webview()", completionHandler: {(result, error) in
-        //
-        //            if self.popupView.canGoBack {
-        //
-        //                self.popupView.goBack()
-        //            }
-        //            print(error)
-        //        })
     }
     
     
     // js -> native call
     @available(iOS 8.0, *)
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        
+        if message.name == "iWebAction" {
+            print("iWebAction")
+        }
     }
     
 }
