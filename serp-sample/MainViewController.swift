@@ -125,6 +125,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
                 self.webView.goBack()
                 
             })
+            self.webView.goBack()
             
         } else if url.host == "kakaonavi-wguide.kakao.com" {
             /* 카카오내비 url 사파리로 띄우는 것이 아닌 앱 실행
