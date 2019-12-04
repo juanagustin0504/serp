@@ -36,8 +36,8 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         self.webView = WKWebView(frame: self.view.frame, configuration: config)
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
-        webView.allowsBackForwardNavigationGestures = true
-        webView.allowsLinkPreview = false
+        self.webView.allowsBackForwardNavigationGestures = true
+        self.webView.allowsLinkPreview = false
         
         //        self.view = self.webView!
         self.view.addSubview(webView)
@@ -51,17 +51,18 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         let url = URL(string: lnk)
         let request = URLRequest(url: url!)
         
-        webView.load(request) // 웹뷰 띄우기 //
+        self.webView.load(request) // 웹뷰 띄우기 //
         
     }
     
+    // javaScript Alert 처리 //
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        
+
         alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
             completionHandler()
         }))
-        
+
         self.present(alertController, animated: true, completion: nil)
         
         if message.lowercased().contains("iwebaction:") {
@@ -100,6 +101,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         
     } // end of webView
     
+    // WebView 안에서 링크 이동 감지 //
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         // 실행 안 됨 //
 
@@ -116,14 +118,13 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             /* Tmap url
              https://apis.openapi.sk.com/tmap/app/routes?appKey=139a893c-dcdd-43a1-8661-c4ae8f201c08&name=%EA%B0%91%EC%9D%84%EA%B7%B8%EB%A0%88%EC%9D%B4%ED%8A%B8%EB%B0%B8%EB%A6%AC&lon=126.88751109358344&lat=37.47951408984022
              https://www.tmap.co.kr/tmap2/mobile/route.jsp?appKey=139a893c-dcdd-43a1-8661-c4ae8f201c08&name=%EA%B0%91%EC%9D%84%EA%B7%B8%EB%A0%88%EC%9D%B4%ED%8A%B8%EB%B0%B8%EB%A6%AC&lon=126.88751109358344&lat=37.47951408984022
-             tmap://?rGoName=%EA%B0%91%EC%9D%84%EA%B7%B8%EB%A0%88%EC%9D%B4%ED%8A%B8%EB%B0%B8%EB%A6%AC&rGoX=126.88751109358344&rGoY=37.47951408984022
+             tmap://?rGoName=%EA%B0%91%EC%9D%ㄹ84%EA%B7%B8%EB%A0%88%EC%9D%B4%ED%8A%B8%EB%B0%B8%EB%A6%AC&rGoX=126.88751109358344&rGoY=37.47951408984022
              */
 //            print("tmap")
             UIApplication.shared.open(url, options: [:], completionHandler: {(action) in
                 self.webView.goBack()
                 
             })
-            self.webView.goBack()
             
         } else if url.host == "kakaonavi-wguide.kakao.com" {
             /* 카카오내비 url 사파리로 띄우는 것이 아닌 앱 실행
@@ -144,13 +145,15 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         decisionHandler(.allow)
     }
     
+//    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) { webView.reload() }
+
+    
     func popupWebViewByGet(lnk: String) {
         
         // get 방식으로 호출 //
         let url = URL(string: "https://serpadmin.appplay.co.kr/pfmc_0001_00.act/" + lnk) // 기존 링크 + js message 링크 //
         let request = URLRequest(url: url!)
         self.webView.load(request)
-        
     }
     
     func popupWebViewByPost(lnk: String, actionData: [String:Any]) {
