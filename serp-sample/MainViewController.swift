@@ -14,7 +14,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     var webView: WKWebView! // 사용할 웹뷰 //
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
-    let contentController = WKUserContentController() // js -> native 호출할 때
+    let contentController = WKUserContentController() // js -> native 호출할 때 //
     let config = WKWebViewConfiguration()
     
     override func loadView() {
@@ -64,8 +64,17 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
 //        }))
 //
 //        self.present(alertController, animated: true, completion: nil)
-        completionHandler()
         
+        if message.starts(with: "비밀번호") {
+            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                completionHandler()
+            }))
+
+            self.present(alertController, animated: true, completion: nil)
+//            print("비밀번호가 5회 이상 틀리셨습니다. 비밀번호 찾기를 통하여 비밀번호를 재설정하시기 바랍니다.")
+        }
         if message.lowercased().contains("iwebaction:") {
             var actionDic: [String: Any]?
             actionDic = String(message.dropFirst(11)).toDictionary()
@@ -136,6 +145,11 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             
         } else {
 //            print(url)
+            let alertController = UIAlertController(title: nil, message: url.absoluteString, preferredStyle: .alert)
+
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+            self.present(alertController, animated: true, completion: nil)
         }
         decisionHandler(.allow)
     }
