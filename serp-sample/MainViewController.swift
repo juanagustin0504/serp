@@ -93,7 +93,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
                 } else {
                     for actionCode in actionCodes {
                         if actionCode == "close_webview" {
-                            closeWebview()
+                            closeWebView()
                         } // end of if "actionCode"
                     } // end of for "actionCode"
                 } // end of else "actionData"
@@ -192,13 +192,8 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
 //        }.resume()
     }
     
-    func closeWebview() {
-        // popup된 webview 닫기
-        if webView.canGoBack {
-            
-            webView.goBack()
-        }
-    }
+    // popup_webview 닫기
+    func closeWebView() { if self.webView.canGoBack { self.webView.goBack() } }
     
     
     // js -> native call
