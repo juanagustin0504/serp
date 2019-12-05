@@ -24,7 +24,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         //        let userScript = WKUserScript(source: "redHeader()", injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         //        contentController.addUserScript(userScript)
         
-        // native -> js call (일반적인 함수 호출)
+        // native -> js call (일반적인 함수 호출) //
         
         
         // js -> native call : name의 값을 지정하여, js에서 webkit.massageHandlers.NAME.postMessage("");와 연동되는 것, userContentController 함수에서 처리한다. //
@@ -94,7 +94,9 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
                     for actionCode in actionCodes {
                         if actionCode == "close_webview" {
                             closeWebView()
-                        } // end of if "actionCode"
+                        } else if actionCode == "finish_app" {
+                            finishApp()
+                        }
                     } // end of for "actionCode"
                 } // end of else "actionData"
             } // end of if "actionCode"
@@ -138,7 +140,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         decisionHandler(.allow)
     }
     
-//    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) { webView.reload() }
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) { webView.reload() }
 
     
     func popupWebViewByGet(lnk: String) {
@@ -179,8 +181,10 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     // popup_webview 닫기
     func closeWebView() { if self.webView.canGoBack { self.webView.goBack() } }
     
+    // finish app //
+    func finishApp() { exit(0) }
     
-    // js -> native call
+    // js -> native call //
     @available(iOS 8.0, *)
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "iWebAction" {
