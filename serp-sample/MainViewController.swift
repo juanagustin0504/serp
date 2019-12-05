@@ -57,13 +57,14 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     // javaScript Alert 처리 //
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
-        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-
-        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-            completionHandler()
-        }))
-
-        self.present(alertController, animated: true, completion: nil)
+//        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+//
+//        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+//            completionHandler()
+//        }))
+//
+//        self.present(alertController, animated: true, completion: nil)
+        completionHandler()
         
         if message.lowercased().contains("iwebaction:") {
             var actionDic: [String: Any]?
@@ -122,7 +123,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
              */
 //            print("tmap")
             UIApplication.shared.open(url, options: [:], completionHandler: {(action) in
-                self.webView.goBack()
+//                self.webView.goBack()
                 
             })
             self.webView.goBack()
