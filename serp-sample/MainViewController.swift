@@ -65,7 +65,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
 //
 //        self.present(alertController, animated: true, completion: nil)
         
-        if message.starts(with: "비밀번호") {
+        if message.starts(with: "비밀번호") || message.starts(with: "아이디") {
             let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
 
             alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
