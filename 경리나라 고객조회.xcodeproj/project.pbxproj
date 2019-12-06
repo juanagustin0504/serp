@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		7617E777238E0E6100D224DA /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7617E776238E0E6100D224DA /* test.html */; };
 		7621F6302390D67C000B5E00 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7621F62F2390D67C000B5E00 /* test.json */; };
-		7645DC5C238F59A300221865 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7645DC5B238F59A300221865 /* LaunchViewController.swift */; };
 		7645DC62238F940400221865 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7645DC61238F940400221865 /* MainViewController.swift */; };
+		764AEE0A2399FFD2002AB39F /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AEE092399FFD2002AB39F /* LaunchViewController.swift */; };
 		76EF5E0D238D1CD200BE8D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EF5E0C238D1CD200BE8D2E /* AppDelegate.swift */; };
 		76EF5E14238D1CD200BE8D2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76EF5E12238D1CD200BE8D2E /* Main.storyboard */; };
 		76EF5E16238D1CD300BE8D2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76EF5E15238D1CD300BE8D2E /* Assets.xcassets */; };
@@ -24,8 +24,8 @@
 /* Begin PBXFileReference section */
 		7617E776238E0E6100D224DA /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		7621F62F2390D67C000B5E00 /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
-		7645DC5B238F59A300221865 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LaunchViewController.swift; path = "serp-sample/LaunchViewController.swift"; sourceTree = SOURCE_ROOT; };
 		7645DC61238F940400221865 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		764AEE092399FFD2002AB39F /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		76EF5E09238D1CD200BE8D2E /* 경리나라 고객조회.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "경리나라 고객조회.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76EF5E0C238D1CD200BE8D2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76EF5E13238D1CD200BE8D2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		76EF5E00238D1CD200BE8D2E = {
 			isa = PBXGroup;
 			children = (
-				76EF5E0B238D1CD200BE8D2E /* serp-sample */,
+				76EF5E0B238D1CD200BE8D2E /* 경리나라 고객조회 */,
 				76EF5E0A238D1CD200BE8D2E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,12 +65,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		76EF5E0B238D1CD200BE8D2E /* serp-sample */ = {
+		76EF5E0B238D1CD200BE8D2E /* 경리나라 고객조회 */ = {
 			isa = PBXGroup;
 			children = (
 				76EF5E28238D1D0100BE8D2E /* Image */,
 				76EF5E0C238D1CD200BE8D2E /* AppDelegate.swift */,
-				7645DC5B238F59A300221865 /* LaunchViewController.swift */,
+				764AEE092399FFD2002AB39F /* LaunchViewController.swift */,
 				7645DC61238F940400221865 /* MainViewController.swift */,
 				7621F62F2390D67C000B5E00 /* test.json */,
 				76EF5E12238D1CD200BE8D2E /* Main.storyboard */,
@@ -79,7 +79,8 @@
 				76EF5E17238D1CD300BE8D2E /* LaunchScreen.storyboard */,
 				76EF5E1A238D1CD300BE8D2E /* Info.plist */,
 			);
-			path = "serp-sample";
+			name = "경리나라 고객조회";
+			path = "경리나라 고객조회";
 			sourceTree = "<group>";
 		};
 		76EF5E28238D1D0100BE8D2E /* Image */ = {
@@ -171,8 +172,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				76EF5E0D238D1CD200BE8D2E /* AppDelegate.swift in Sources */,
-				7645DC5C238F59A300221865 /* LaunchViewController.swift in Sources */,
 				7645DC62238F940400221865 /* MainViewController.swift in Sources */,
+				764AEE0A2399FFD2002AB39F /* LaunchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +320,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = DL7DPUW7R9;
-				INFOPLIST_FILE = "serp-sample/Info.plist";
+				INFOPLIST_FILE = "경리나라 고객조회/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -340,7 +341,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = DL7DPUW7R9;
-				INFOPLIST_FILE = "serp-sample/Info.plist";
+				INFOPLIST_FILE = "경리나라 고객조회/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
