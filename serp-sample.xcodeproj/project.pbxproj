@@ -325,9 +325,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.webcash.serp-test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.serpSampleEnt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "serp test ent";
+				PROVISIONING_PROFILE_SPECIFIER = "serp sample ent";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -346,9 +346,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.webcash.serp-test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.serpSampleEnt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "serp test ent";
+				PROVISIONING_PROFILE_SPECIFIER = "serp sample ent";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

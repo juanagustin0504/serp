@@ -39,8 +39,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         self.webView.allowsBackForwardNavigationGestures = true
         self.webView.allowsLinkPreview = false
         
-        //        self.view = self.webView!
-        self.view.addSubview(webView)
+        self.view.addSubview(webView) // == self.view = self.webView!
     }
     
     override func viewDidLoad() {
@@ -57,6 +56,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     // javaScript Alert 처리 //
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        // webAction Alert이 필요하다면 주석 해제. //
 //        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
 //
 //        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
@@ -74,8 +74,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
 
             self.present(alertController, animated: true, completion: nil)
 //            print("비밀번호가 5회 이상 틀리셨습니다. 비밀번호 찾기를 통하여 비밀번호를 재설정하시기 바랍니다.")
-        }
-        if message.lowercased().contains("iwebaction:") {
+        } else if message.lowercased().contains("iwebaction:") {
             var actionDic: [String: Any]?
             actionDic = String(message.dropFirst(11)).toDictionary()
             if let actionDic = actionDic {
@@ -110,6 +109,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
                 } // end of else "actionData"
             } // end of if "actionCode"
         } // end of if "message == iwebaction:"
+        else { completionHandler() }
         
     } // end of webView
     
@@ -144,7 +144,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             }
             
         } else {
-//            print(url)
             let alertController = UIAlertController(title: nil, message: url.absoluteString, preferredStyle: .alert)
 
             alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
