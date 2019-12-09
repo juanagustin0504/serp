@@ -16,12 +16,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="intro_bg_1125x2436.png" translatesAutoresizingMaskIntoConstraints="NO" id="cb0-hN-scs">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="intro_bg_1125x2436.png" translatesAutoresizingMaskIntoConstraints="NO" id="cb0-hN-scs">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="cb0-hN-scs" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1JK-HL-5xc"/>
+                            <constraint firstItem="cb0-hN-scs" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1bY-8j-1Eq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cb0-hN-scs" secondAttribute="trailing" id="6k7-TB-g45"/>
+                            <constraint firstItem="cb0-hN-scs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qm1-ip-CVX"/>
+                            <constraint firstItem="cb0-hN-scs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aMh-Gg-J6K"/>
+                            <constraint firstItem="cb0-hN-scs" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="j0N-oh-Wfi"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cb0-hN-scs" secondAttribute="bottom" id="m8A-Kl-6N0"/>
+                            <constraint firstItem="cb0-hN-scs" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="o4a-6l-RdF"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="KEd-W2-Wdr"/>
