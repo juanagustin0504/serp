@@ -11,6 +11,8 @@ import UIKit
 /**
  * 앱이 실행될 때 앱 초기 설정 데이터 받아오는 뷰컨
  */
+
+let images = ["intro_bg_1125x2436.png", "intro_bg_1242.png", "intro_bg_1280.png", "intro_bg.png"]
 class LaunchViewController: UIViewController {
 
     

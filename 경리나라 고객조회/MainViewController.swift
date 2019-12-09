@@ -205,6 +205,10 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         }
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
 }
 
 
