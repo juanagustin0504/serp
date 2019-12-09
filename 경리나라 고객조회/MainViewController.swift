@@ -110,7 +110,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             } // end of if "actionCode"
         } // end of if "message == iwebaction:"
         else {
-            
             completionHandler()
             print(message)
         }
@@ -139,21 +138,27 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
 
         } else if url.host == "kakaonavi-wguide.kakao.com" {
             // 카카오내비 url 앱이 있으면 앱을 실행, 없다면 기존의 웹뷰에서 실행 //
-
-            let kakaoNaviURL = URL(string: "kakaonavi://")
-            if UIApplication.shared.canOpenURL(kakaoNaviURL!) {
-                UIApplication.shared.open(kakaoNaviURL!, options: [:], completionHandler: {
+            print("kakao url : \(url)")
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: {
                     (action) in
                     self.webView.goBack()
                 })
             }
 
-        } else {
-            let alertController = UIAlertController(title: nil, message: url.absoluteString, preferredStyle: .alert)
-
-            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-
-            self.present(alertController, animated: true, completion: nil)
+        } else if url.absoluteString.lowercased().contains("tmap://") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        } else if url.host == "itunes.apple.com" {
+            print("itunes")
+            let tmapStr = "tmap://"
+            if let tmapURL = URL(string: tmapStr) {
+                if !UIApplication.shared.canOpenURL(tmapURL) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+        
         }
         decisionHandler(.allow)
     }
