@@ -127,7 +127,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             // Tmap url 사파리로 이동 후 앱으로 이동 //
              
             UIApplication.shared.open(url, options: [:], completionHandler: {(action) in
-//                self.webView.goBack()
+//                self.webView.goBack()ㄴ
                 
             })
             self.webView.goBack()
