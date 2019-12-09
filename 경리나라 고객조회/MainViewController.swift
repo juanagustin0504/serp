@@ -62,8 +62,9 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
 //        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
 //            completionHandler()
 //        }))
-//
+
 //        self.present(alertController, animated: true, completion: nil)
+        completionHandler()
         
         if message.starts(with: "비밀번호") || message.starts(with: "아이디") {
             let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
@@ -73,7 +74,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             }))
 
             self.present(alertController, animated: true, completion: nil)
-//            print("비밀번호가 5회 이상 틀리셨습니다. 비밀번호 찾기를 통하여 비밀번호를 재설정하시기 바랍니다.")
         } else if message.lowercased().contains("iwebaction:") {
             var actionDic: [String: Any]?
             actionDic = String(message.dropFirst(11)).toDictionary()
@@ -109,7 +109,11 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
                 } // end of else "actionData"
             } // end of if "actionCode"
         } // end of if "message == iwebaction:"
-        else { completionHandler() }
+        else {
+            
+            completionHandler()
+            print(message)
+        }
         
     } // end of webView
     
@@ -121,20 +125,21 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             decisionHandler(.cancel)
             return
         }
-        
+
+        print("url : \(url)")
+
         if url.host == "serpadmin.appplay.co.kr" {
         } else if url.host == "apis.openapi.sk.com" {
             // Tmap url 사파리로 이동 후 앱으로 이동 //
-             
+
             UIApplication.shared.open(url, options: [:], completionHandler: {(action) in
-//                self.webView.goBack()ㄴ
-                
+//                self.webView.goBack()
             })
             self.webView.goBack()
-            
+
         } else if url.host == "kakaonavi-wguide.kakao.com" {
             // 카카오내비 url 앱이 있으면 앱을 실행, 없다면 기존의 웹뷰에서 실행 //
-           
+
             let kakaoNaviURL = URL(string: "kakaonavi://")
             if UIApplication.shared.canOpenURL(kakaoNaviURL!) {
                 UIApplication.shared.open(kakaoNaviURL!, options: [:], completionHandler: {
@@ -142,7 +147,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
                     self.webView.goBack()
                 })
             }
-            
+
         } else {
             let alertController = UIAlertController(title: nil, message: url.absoluteString, preferredStyle: .alert)
 
@@ -198,7 +203,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     func finishApp() { exit(0) }
     
     // js -> native call //
-    @available(iOS 8.0, *)
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "iWebAction" {
             print("iWebAction")

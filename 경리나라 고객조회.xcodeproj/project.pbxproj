@@ -320,7 +320,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = DL7DPUW7R9;
-				INFOPLIST_FILE = "경리나라 고객조회/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/경리나라 고객조회/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -341,7 +341,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = DL7DPUW7R9;
-				INFOPLIST_FILE = "경리나라 고객조회/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/경리나라 고객조회/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
