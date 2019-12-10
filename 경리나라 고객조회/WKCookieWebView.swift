@@ -26,9 +26,9 @@ class WKCookieWebView: WKWebView {
     }
 
     override func load(_ request: URLRequest) -> WKNavigation? {
-        guard useRedirectCookieHandling else {
-            return super.load(request)
-        }
+//        guard useRedirectCookieHandling else {
+//            return super.load(request)
+//        }
 
         requestWithCookieHandling(request, success: { (newRequest , response, data) in
             DispatchQueue.main.async {
