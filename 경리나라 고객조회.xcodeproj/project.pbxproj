@@ -11,6 +11,7 @@
 		7621F6302390D67C000B5E00 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7621F62F2390D67C000B5E00 /* test.json */; };
 		7645DC62238F940400221865 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7645DC61238F940400221865 /* MainViewController.swift */; };
 		764AEE0A2399FFD2002AB39F /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AEE092399FFD2002AB39F /* LaunchViewController.swift */; };
+		76985105239F1BAE00B6E28C /* WKCookieWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76985104239F1BAE00B6E28C /* WKCookieWebView.swift */; };
 		76EF5E0D238D1CD200BE8D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EF5E0C238D1CD200BE8D2E /* AppDelegate.swift */; };
 		76EF5E14238D1CD200BE8D2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76EF5E12238D1CD200BE8D2E /* Main.storyboard */; };
 		76EF5E16238D1CD300BE8D2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76EF5E15238D1CD300BE8D2E /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		7621F62F2390D67C000B5E00 /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		7645DC61238F940400221865 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		764AEE092399FFD2002AB39F /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		76985104239F1BAE00B6E28C /* WKCookieWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKCookieWebView.swift; sourceTree = "<group>"; };
 		76EF5E09238D1CD200BE8D2E /* 경리나라 고객조회.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "경리나라 고객조회.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76EF5E0C238D1CD200BE8D2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76EF5E13238D1CD200BE8D2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				76EF5E15238D1CD300BE8D2E /* Assets.xcassets */,
 				76EF5E17238D1CD300BE8D2E /* LaunchScreen.storyboard */,
 				76EF5E1A238D1CD300BE8D2E /* Info.plist */,
+				76985104239F1BAE00B6E28C /* WKCookieWebView.swift */,
 			);
 			name = "경리나라 고객조회";
 			path = "경리나라 고객조회";
@@ -172,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76EF5E0D238D1CD200BE8D2E /* AppDelegate.swift in Sources */,
+				76985105239F1BAE00B6E28C /* WKCookieWebView.swift in Sources */,
 				7645DC62238F940400221865 /* MainViewController.swift in Sources */,
 				764AEE0A2399FFD2002AB39F /* LaunchViewController.swift in Sources */,
 			);
