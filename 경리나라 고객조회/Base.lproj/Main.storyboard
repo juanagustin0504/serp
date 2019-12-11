@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="intro_bg_1125x2436.png" translatesAutoresizingMaskIntoConstraints="NO" id="cb0-hN-scs">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="intro_bg_1242.png" translatesAutoresizingMaskIntoConstraints="NO" id="cb0-hN-scs">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                             </imageView>
                         </subviews>
@@ -73,6 +73,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="intro_bg_1125x2436.png" width="1125" height="2436"/>
+        <image name="intro_bg_1242.png" width="1242" height="2208"/>
     </resources>
 </document>
