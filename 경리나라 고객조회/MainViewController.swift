@@ -124,7 +124,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             // Tmap url 사파리로 이동 후 앱으로 이동 //
 
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            self.webView.goBack()
+//            self.webView.goBack()
 
         } else if url.host == "kakaonavi-wguide.kakao.com" {
             // 카카오내비 url 앱이 있으면 앱을 실행, 없다면 웹뷰에서 실행 //
@@ -137,14 +137,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
-        } else if url.host == "itunes.apple.com" {
-            let tmapStr = "tmap://"
-            if let tmapURL = URL(string: tmapStr) {
-                if !UIApplication.shared.canOpenURL(tmapURL) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-            }
-        
         } else {
             print(url)
         }
@@ -257,8 +249,10 @@ extension WKWebView {
                     cookieDict[cookie.name] = cookie.properties as AnyObject?
                 }
             }
-            UserDefaults.standard.set(cookieDict, forKey: "WebCookiesSaved")
-            UserDefaults.standard.synchronize()
+            if domain == ".serpadmin.appplay.co.kr" || domain == "serpadmin.appplay.co.kr" {
+                UserDefaults.standard.set(cookieDict, forKey: "WebCookiesSaved")
+                UserDefaults.standard.synchronize()
+            }
             completion(cookieDict)
         }
     }
