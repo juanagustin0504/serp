@@ -111,7 +111,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     // WebView 안에서 링크 이동 감지 //
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        // 실행 안 됨 //
 
         guard let url = navigationAction.request.url else {
             decisionHandler(.cancel)
