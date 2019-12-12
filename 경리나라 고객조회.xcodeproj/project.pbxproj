@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7617E777238E0E6100D224DA /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 7617E776238E0E6100D224DA /* test.html */; };
-		7621F6302390D67C000B5E00 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7621F62F2390D67C000B5E00 /* test.json */; };
 		7645DC62238F940400221865 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7645DC61238F940400221865 /* MainViewController.swift */; };
 		764AEE0A2399FFD2002AB39F /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AEE092399FFD2002AB39F /* LaunchViewController.swift */; };
 		76985105239F1BAE00B6E28C /* WKCookieWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76985104239F1BAE00B6E28C /* WKCookieWebView.swift */; };
@@ -24,7 +23,6 @@
 
 /* Begin PBXFileReference section */
 		7617E776238E0E6100D224DA /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
-		7621F62F2390D67C000B5E00 /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		7645DC61238F940400221865 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		764AEE092399FFD2002AB39F /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		76985104239F1BAE00B6E28C /* WKCookieWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKCookieWebView.swift; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 				764AEE092399FFD2002AB39F /* LaunchViewController.swift */,
 				7645DC61238F940400221865 /* MainViewController.swift */,
 				76985104239F1BAE00B6E28C /* WKCookieWebView.swift */,
-				7621F62F2390D67C000B5E00 /* test.json */,
 				76EF5E12238D1CD200BE8D2E /* Main.storyboard */,
 				7617E776238E0E6100D224DA /* test.html */,
 				76EF5E15238D1CD300BE8D2E /* Assets.xcassets */,
@@ -163,7 +160,6 @@
 				76EF5E27238D1CFE00BE8D2E /* intro_bg_1242.png in Resources */,
 				76EF5E24238D1CFE00BE8D2E /* intro_bg_1280.png in Resources */,
 				76EF5E14238D1CD200BE8D2E /* Main.storyboard in Resources */,
-				7621F6302390D67C000B5E00 /* test.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

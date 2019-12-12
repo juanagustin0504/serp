@@ -20,40 +20,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         return WKWebsiteDataStore.default().httpCookieStore
     }
     
-//    func initWebView() {
-//        if webView != nil { return }
-//        let webView = WKWebView(frame: self.view.bounds)
-//        webView.navigationDelegate = self
-//        webView.uiDelegate = self
-//        webView.allowsBackForwardNavigationGestures = true
-//        webView.allowsLinkPreview = false
-//
-//        let properties: [HTTPCookiePropertyKey : Any] = [HTTPCookiePropertyKey.domain: "serpadmin.appplay.co.kr",
-//                                                         HTTPCookiePropertyKey.name: "SCOUTER",
-//                                                         HTTPCookiePropertyKey.path: "/",
-//                                                         HTTPCookiePropertyKey.value: "x3i05qfs0a7mjq"]
-//
-//        guard let cookie = HTTPCookie(properties: properties), let url = URL(string: "https://serpadmin.appplay.co.kr/pfmc_0001_01.act") else { print("Asdf"); return }
-//        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20.0)
-//        let headers = HTTPCookie.requestHeaderFields(with: [cookie])
-//        for (name, value) in headers {
-//            print("-----------------")
-//            print("\(name) : \(value)")
-//            request.addValue(value, forHTTPHeaderField: name)
-//        }
-//
-//        webView.load(request)
-//
-//        view.addSubview(webView)
-//        self.webView = webView
-//    }
-//
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        if webView == nil { initWebView() }
-//        webView?.load(url: url)
-//    }
-    
     func getCookies() {
         let cookiesStorage = HTTPCookieStorage.shared
         let userDefaults = UserDefaults.standard
@@ -98,12 +64,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     // javaScript Alert 처리 //
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
-        // webAction Alert이 필요하다면 주석 해제. //
-//        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-//
-//        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//
-//        self.present(alertController, animated: true, completion: nil)
+        
         if message.contains("아이디") || message.contains("비밀번호") {
             let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
 
@@ -148,20 +109,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         
     } // end of webView
     
-//    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-//        // push new screen to the navigation controller when need to open url in another "tab"
-//        if let url = navigationAction.request.url, navigationAction.targetFrame == nil {
-//            let mainViewController = MainViewController()
-//            mainViewController.initWebView()
-//            mainViewController.url = url
-//            DispatchQueue.main.async { [weak self] in
-//                self?.navigationController?.pushViewController(mainViewController, animated: true)
-//            }
-//            return mainViewController.webView
-//        }
-//        return nil
-//    }
-//
     // WebView 안에서 링크 이동 감지 //
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         // 실행 안 됨 //
@@ -176,16 +123,14 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         } else if url.host == "apis.openapi.sk.com" {
             // Tmap url 사파리로 이동 후 앱으로 이동 //
 
-            UIApplication.shared.open(url, options: [:], completionHandler: {(action) in
-//                self.webView.goBack()
-            })
-            self.webView!.goBack()
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            self.webView.goBack()
 
         } else if url.host == "kakaonavi-wguide.kakao.com" {
-            // 카카오내비 url 앱이 있으면 앱을 실행, 없다면 기존의 웹뷰에서 실행 //
+            // 카카오내비 url 앱이 있으면 앱을 실행, 없다면 웹뷰에서 실행 //
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: {(action) in
-                    self.webView!.goBack()
+                    self.webView.goBack()
                 })
             }
         } else if url.absoluteString.lowercased().contains("tmap://") {
@@ -218,7 +163,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) { webView.reload() }
     
-    func goToMain() {_ = self.webView!.load(URLRequest(url: url))}
+    func goToMain() {_ = self.webView.load(URLRequest(url: URL(string: mainURLStr)!))}
 
     func popupWebViewByGet(lnk: String) {
 //        https://serpadmin.appplay.co.kr/pfmc_0001_00.act/
@@ -257,11 +202,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     // popup_webview 닫기
     func closeWebView() {
-        if self.webView!.canGoBack {
-            self.webView!.goBack()
-        } else {
-            goToMain()
-        }
+        goToMain()
     }
     
     // finish app //
@@ -279,7 +220,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     }
     
 }
-
 
 extension String {
     func toDictionary() -> [String: Any]? {
@@ -323,91 +263,3 @@ extension WKWebView {
         }
     }
 }
-//extension MainViewController: WKNavigationDelegate, WKUIDelegate {
-//
-//    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-//        #if DEBUG
-//        print("Error loading URL: ", error)
-//        #endif
-//
-//    }
-//
-//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        #if DEBUG
-//        print("............................Webkit did finish loading............................")
-//        #endif
-//        if let pageTitle = webView.title {
-//
-//        }
-//    }
-//
-//    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-//        // restart session timeout counter
-//
-//
-//        if let urlSt = webView.url?.absoluteString, !urlSt.contains("webtoapp:") && !urlSt.contains("wapi") {
-//
-//        }
-//    }
-//
-//    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-//        #if DEBUG
-//        print(error.localizedDescription)
-//        #endif
-//    }
-//
-//    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-//        #if DEBUG
-//        print("............................Webkit decide policy............................")
-//        #endif
-//    }
-//
-//    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-//        #if DEBUG
-//        print("............................Webkit navigation response............................")
-//        #endif
-//    }
-//
-//    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
-//        #if DEBUG
-//        print("............................Webkit run java script............................")
-//        print(message)
-//        print("..........................End Webkit run java script..........................")
-//        #endif
-//
-//        if message.lowercased().contains("iwebaction:") { // handle with action code
-//
-//        }else {
-//
-//        }
-//    }
-//
-//    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
-//        #if DEBUG
-//        print("............................Webkit confirm panel............................")
-//        print(message)
-//        print("..........................End Webkit confirm panel..........................")
-//        #endif
-//
-//
-//        if !message.lowercased().contains("iwebaction:") {
-//
-//        } else {
-//            completionHandler(true)
-//        }
-//    }
-//
-//    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
-//        #if DEBUG
-//        print("............................Webkit prompt panel............................")
-//        print(prompt)
-//        print("..........................End Webkit prompt panel..........................")
-//        #endif
-//
-//        if prompt.lowercased().contains("iwebaction:") {
-//
-//        }
-//
-//        completionHandler(nil)
-//    }
-//}
