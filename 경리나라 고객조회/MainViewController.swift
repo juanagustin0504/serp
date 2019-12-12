@@ -12,70 +12,89 @@ import WebKit
 class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler {
     
     private lazy var url = URL(string: "https://serpadmin.appplay.co.kr/pfmc_0001_00.act")!
-    private weak var webView: WKWebView?
-    let mainURLStr: String = "https://serpadmin.appplay.co.kr/pfmc_0001_01.act"
+    private let mainURLStr: String = "https://serpadmin.appplay.co.kr/pfmc_0001_01.act"
     
-    func initWebView() {
-        if webView != nil { return }
-        let webView = WKWebView(frame: self.view.bounds)
-        webView.navigationDelegate = self
-        webView.uiDelegate = self
-        webView.allowsBackForwardNavigationGestures = true
-        webView.allowsLinkPreview = false
-        
-        let properties: [HTTPCookiePropertyKey : Any] = [HTTPCookiePropertyKey.domain: "serpadmin.appplay.co.kr",
-                                                         HTTPCookiePropertyKey.name: "SCOUTER",
-                                                         HTTPCookiePropertyKey.path: "/",
-                                                         HTTPCookiePropertyKey.value: "x3i05qfs0a7mjq"]
-
-        guard let cookie = HTTPCookie(properties: properties), let url = URL(string: "https://serpadmin.appplay.co.kr/pfmc_0001_01.act") else { return }
-        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20.0)
-        let headers = HTTPCookie.requestHeaderFields(with: [cookie])
-        for (name, value) in headers {
-            request.addValue(value, forHTTPHeaderField: name)
+    var webView: WKWebView!
+    
+    private var httpCookieStore: WKHTTPCookieStore  {
+        return WKWebsiteDataStore.default().httpCookieStore
+    }
+    
+//    func initWebView() {
+//        if webView != nil { return }
+//        let webView = WKWebView(frame: self.view.bounds)
+//        webView.navigationDelegate = self
+//        webView.uiDelegate = self
+//        webView.allowsBackForwardNavigationGestures = true
+//        webView.allowsLinkPreview = false
+//
+//        let properties: [HTTPCookiePropertyKey : Any] = [HTTPCookiePropertyKey.domain: "serpadmin.appplay.co.kr",
+//                                                         HTTPCookiePropertyKey.name: "SCOUTER",
+//                                                         HTTPCookiePropertyKey.path: "/",
+//                                                         HTTPCookiePropertyKey.value: "x3i05qfs0a7mjq"]
+//
+//        guard let cookie = HTTPCookie(properties: properties), let url = URL(string: "https://serpadmin.appplay.co.kr/pfmc_0001_01.act") else { print("Asdf"); return }
+//        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20.0)
+//        let headers = HTTPCookie.requestHeaderFields(with: [cookie])
+//        for (name, value) in headers {
+//            print("-----------------")
+//            print("\(name) : \(value)")
+//            request.addValue(value, forHTTPHeaderField: name)
+//        }
+//
+//        webView.load(request)
+//
+//        view.addSubview(webView)
+//        self.webView = webView
+//    }
+//
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        if webView == nil { initWebView() }
+//        webView?.load(url: url)
+//    }
+    
+    func getCookies() {
+        let cookiesStorage = HTTPCookieStorage.shared
+        let userDefaults = UserDefaults.standard
+        if let cookieDictionary = userDefaults.dictionary(forKey: "WebCookiesSaved") {
+            for (_, cookieProperties) in cookieDictionary {
+                if let cookie = HTTPCookie(properties: cookieProperties as! [HTTPCookiePropertyKey : Any] ) {
+                    cookiesStorage.setCookie(cookie)
+                }
+            }
         }
-        
-        webView.load(request)
-        
-        view.addSubview(webView)
-        self.webView = webView
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if webView == nil { initWebView() }
-        webView?.load(url: url)
+    override func loadView() {
+        super.loadView()
+        
+        let _frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        
+        let preferences = WKPreferences()
+        preferences.javaScriptEnabled = true
+        let conf = WKWebViewConfiguration()
+        conf.preferences = preferences
+        
+        self.webView = WKCookieWebView(frame: _frame, configuration: conf, useRedirectCookieHandling: true)
+        self.webView.uiDelegate = self
+        self.webView.navigationDelegate = self
+        self.webView.allowsBackForwardNavigationGestures = true
+        self.webView.allowsLinkPreview = false
+        
+        self.view.addSubview(webView) // == self.view = self.webView!
     }
     
-    
-//    override func loadView() {
-//        super.loadView()
-//        
-//        let _frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-//        
-//        let preferences = WKPreferences()
-//        preferences.javaScriptEnabled = true
-//        let conf = WKWebViewConfiguration()
-//        conf.preferences = preferences
-//        
-//        self.webView = WKCookieWebView(frame: _frame, configuration: conf, useRedirectCookieHandling: true)
-//        self.webView.uiDelegate = self
-//        self.webView.navigationDelegate = self
-//        self.webView.allowsBackForwardNavigationGestures = true
-//        self.webView.allowsLinkPreview = false
-//        
-//        self.view.addSubview(webView) // == self.view = self.webView!
-//    }
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        // Do any additional setup after loading the view.
-//        let url = URL(string: loginURLStr)
-//        let request = URLRequest(url: url!)
-//
-//        _ = self.webView.load(request)
-//
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        let request = URLRequest(url: url)
+
+        getCookies()
+        
+        _ = self.webView.load(request)
+
+    }
     
     // javaScript Alert 처리 //
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
@@ -129,20 +148,20 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         
     } // end of webView
     
-    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        // push new screen to the navigation controller when need to open url in another "tab"
-        if let url = navigationAction.request.url, navigationAction.targetFrame == nil {
-            let mainViewController = MainViewController()
-            mainViewController.initWebView()
-            mainViewController.url = url
-            DispatchQueue.main.async { [weak self] in
-                self?.navigationController?.pushViewController(mainViewController, animated: true)
-            }
-            return mainViewController.webView
-        }
-        return nil
-    }
-    
+//    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+//        // push new screen to the navigation controller when need to open url in another "tab"
+//        if let url = navigationAction.request.url, navigationAction.targetFrame == nil {
+//            let mainViewController = MainViewController()
+//            mainViewController.initWebView()
+//            mainViewController.url = url
+//            DispatchQueue.main.async { [weak self] in
+//                self?.navigationController?.pushViewController(mainViewController, animated: true)
+//            }
+//            return mainViewController.webView
+//        }
+//        return nil
+//    }
+//
     // WebView 안에서 링크 이동 감지 //
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         // 실행 안 됨 //
@@ -189,7 +208,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if let url = webView.url {
-            webView.getCookies(for: url.host) { data in
+            webView.saveCookies(for: url.host) { data in
                 print("=========================================")
                 print("\(url.absoluteString)")
                 print(data)
@@ -199,7 +218,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) { webView.reload() }
     
-    func goToMain() {_ = self.webView!.load(URLRequest(url: URL(string: mainURLStr)!))}
+    func goToMain() {_ = self.webView!.load(URLRequest(url: url))}
 
     func popupWebViewByGet(lnk: String) {
 //        https://serpadmin.appplay.co.kr/pfmc_0001_00.act/
@@ -284,22 +303,25 @@ extension WKWebView {
     func load(url: URL) { load(URLRequest(url: url)) }
     
     private var httpCookieStore: WKHTTPCookieStore  { return WKWebsiteDataStore.default().httpCookieStore }
-
-     func getCookies(for domain: String? = nil, completion: @escaping ([String : Any])->())  {
-         var cookieDict = [String : AnyObject]()
-         httpCookieStore.getAllCookies { cookies in
-             for cookie in cookies {
-                 if let domain = domain {
-                     if cookie.domain.contains(domain) {
-                         cookieDict[cookie.name] = cookie.properties as AnyObject?
-                     }
-                 } else {
-                     cookieDict[cookie.name] = cookie.properties as AnyObject?
-                 }
-             }
-             completion(cookieDict)
-         }
-     }
+    
+    func saveCookies(for domain: String? = nil, completion: @escaping ([String : Any])->())  {
+        var cookieDict = [String : AnyObject]()
+        httpCookieStore.getAllCookies { (cookies) in
+            
+            for cookie in cookies {
+                if let domain = domain {
+                    if cookie.domain.contains(domain) {
+                        cookieDict[cookie.name] = cookie.properties as AnyObject?
+                    }
+                } else {
+                    cookieDict[cookie.name] = cookie.properties as AnyObject?
+                }
+            }
+            UserDefaults.standard.set(cookieDict, forKey: "WebCookiesSaved")
+            UserDefaults.standard.synchronize()
+            completion(cookieDict)
+        }
+    }
 }
 //extension MainViewController: WKNavigationDelegate, WKUIDelegate {
 //
