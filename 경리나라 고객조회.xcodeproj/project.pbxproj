@@ -24,7 +24,7 @@
 		7645DC61238F940400221865 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		764AEE092399FFD2002AB39F /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		76985104239F1BAE00B6E28C /* WKCookieWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKCookieWebView.swift; sourceTree = "<group>"; };
-		76EF5E09238D1CD200BE8D2E /* 경리나라 고객조회.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "경리나라 고객조회.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		76EF5E09238D1CD200BE8D2E /* Serp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Serp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76EF5E0C238D1CD200BE8D2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76EF5E13238D1CD200BE8D2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		76EF5E15238D1CD300BE8D2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		76EF5E0A238D1CD200BE8D2E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				76EF5E09238D1CD200BE8D2E /* 경리나라 고객조회.app */,
+				76EF5E09238D1CD200BE8D2E /* Serp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,7 +108,7 @@
 			);
 			name = "경리나라 고객조회";
 			productName = "serp-sample";
-			productReference = 76EF5E09238D1CD200BE8D2E /* 경리나라 고객조회.app */;
+			productReference = 76EF5E09238D1CD200BE8D2E /* Serp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -313,8 +313,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = DL7DPUW7R9;
 				INFOPLIST_FILE = "$(SRCROOT)/경리나라 고객조회/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -322,9 +323,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.serpSampleEnt;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PRODUCT_NAME = Serp;
+				PROVISIONING_PROFILE_SPECIFIER = "serp sample ent";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -334,8 +336,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = DL7DPUW7R9;
 				INFOPLIST_FILE = "$(SRCROOT)/경리나라 고객조회/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -343,9 +346,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.webcash.serpSampleEnt;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PRODUCT_NAME = Serp;
+				PROVISIONING_PROFILE_SPECIFIER = "serp sample ent";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
